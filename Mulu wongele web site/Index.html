@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tateq 25 Kilo Full Gospel Church - Year 10,000</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&family=Nova+Square&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <style>
+        :root {
+            --molten-orange: #ff8c00;
+            --stellar-cyan: #00e6e6;
+            --void-depth: #030303;
+            --ethereal-light: #f0f0f0;
+            --cosmic-glow: 0 0 20px #ff8c00, 0 0 40px #00e6e6, 0 0 60px #ff8c00;
+            --radius-molten: 100px;
+            --radius-sub: 50px;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--void-depth);
+            color: var(--ethereal-light);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #multiverse-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.85;
+        }
+
+        nav {
+            background: rgba(3, 3, 3, 0.9);
+            padding: 30px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(30px);
+            border-bottom: 5px solid var(--molten-orange);
+            border-radius: 0 0 var(--radius-molten) var(--radius-molten);
+            animation: moltenFlow 4s infinite;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: var(--ethereal-light);
+            font-size: 26px;
+            padding: 25px 40px;
+            text-decoration: none;
+            border-radius: var(--radius-sub);
+            transition: all 0.5s ease;
+            text-shadow: var(--cosmic-glow);
+            font-family: 'Nova Square', sans-serif;
+        }
+
+        nav ul li a:hover {
+            background: linear-gradient(135deg, var(--molten-orange), var(--stellar-cyan));
+            transform: scale(1.2) translateY(-10px);
+            box-shadow: var(--cosmic-glow);
+            animation: ripple 0.8s infinite;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: rgba(3, 3, 3, 0.95);
+            min-width: 250px;
+            top: 90px;
+            left: 0;
+            border-radius: var(--radius-sub);
+            box-shadow: var(--cosmic-glow);
+        }
+
+        nav ul li:hover .dropdown {
+            display: block;
+            animation: cosmicRise 0.8s ease-in-out;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger {
+            display: none;
+            font-size: 40px;
+            color: var(--ethereal-light);
+            cursor: pointer;
+            text-shadow: var(--cosmic-glow);
+            padding: 10px 20px;
+        }
+
+        .hamburger:hover {
+            color: var(--molten-orange);
+        }
+
+        header {
+            padding: 350px 20px 250px;
+            background: url('church-banner.jpg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+            border-radius: 0 0 var(--radius-molten) var(--radius-molten);
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(0, 230, 230, 0.5));
+            z-index: 1;
+        }
+
+        header > * {
+            z-index: 2;
+        }
+
+        .cosmic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 50px;
+            max-width: 1600px;
+            margin: 100px auto;
+            padding: 0 40px;
+        }
+
+        .cosmic-module {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 60px;
+            border-radius: var(--radius-molten);
+            box-shadow: var(--cosmic-glow);
+            transition: all 0.7s ease;
+            backdrop-filter: blur(25px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cosmic-module::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 140, 0, 0.2), transparent);
+            animation: orbitGlow 6s infinite;
+        }
+
+        .cosmic-module:hover {
+            transform: scale(1.1) rotate(4deg);
+            box-shadow: 0 0 50px #ff8c00, 0 0 100px #00e6e6;
+            border-radius: calc(var(--radius-molten) + 30px);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--molten-orange), var(--stellar-cyan));
+            color: var(--ethereal-light);
+            padding: 30px 60px;
+            border: none;
+            border-radius: var(--radius-sub);
+            cursor: pointer;
+            transition: all 0.6s ease;
+            box-shadow: var(--cosmic-glow);
+            font-size: 24px;
+            text-shadow: 0 0 8px #fff;
+        }
+
+        button:hover {
+            transform: scale(1.25) rotate(10deg);
+            box-shadow: 0 0 80px #ff8c00, 0 0 160px #00e6e6;
+            animation: cosmicPulse 2s infinite;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: var(--radius-sub);
+            box-shadow: var(--cosmic-glow);
+            transition: all 0.7s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.3) rotate(12deg);
+            filter: brightness(1.4) saturate(2);
+        }
+
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .event-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: var(--radius-sub);
+            box-shadow: var(--cosmic-glow);
+            transition: all 0.5s ease;
+        }
+
+        .event-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px #ff8c00, 0 0 80px #00e6e6;
+        }
+
+        footer {
+            background: rgba(3, 3, 3, 0.98);
+            padding: 100px;
+            border-radius: var(--radius-molten) var(--radius-molten) 0 0;
+            box-shadow: var(--cosmic-glow);
+        }
+
+        @keyframes ripple {
+            0% { transform: scale(1.2) translateY(-10px); }
+            50% { transform: scale(1.25) translateY(-12px); }
+            100% { transform: scale(1.2) translateY(-10px); }
+        }
+
+        @keyframes cosmicRise {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes cosmicPulse {
+            0% { box-shadow: var(--cosmic-glow); }
+            50% { box-shadow: 0 0 100px #ff8c00, 0 0 200px #00e6e6; }
+            100% { box-shadow: var(--cosmic-glow); }
+        }
+
+        @keyframes moltenFlow {
+            0% { border-color: var(--molten-orange); }
+            50% { border-color: var(--stellar-cyan); }
+            100% { border-color: var(--molten-orange); }
+        }
+
+        @keyframes orbitGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Media Query for Mobile */
+        @media (max-width: 768px) {
+            .cosmic-grid { grid-template-columns: 1fr; }
+            .hamburger { display: block; }
+            nav ul {
+                display: none; /* Hidden by default on mobile */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(3, 3, 3, 0.95);
+                border-radius: 0 0 var(--radius-molten) var(--radius-molten);
+                box-shadow: var(--cosmic-glow);
+            }
+            nav ul.active {
+                display: flex; /* Show when toggled */
+            }
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+            nav ul li a {
+                display: block;
+                padding: 20px;
+            }
+            .dropdown {
+                position: relative;
+                top: 0;
+                width: 100%;
+                display: none; /* Hidden by default, shown on hover/touch */
+            }
+            nav ul li:hover .dropdown {
+                display: block;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .hamburger { display: none; }
+            nav ul { display: flex; } /* Normal header for desktop */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="multiverse-bg"></canvas>
+
+    <header>
+        <img src="images.jpeg" alt="Church Emblem" style="width: 300px; border-radius: 50%; box-shadow: var(--cosmic-glow);">
+        <h1>Tateq 25 Kilo Full Gospel Church</h1>
+        <p style="font-size: 32px; text-shadow: var(--cosmic-glow);">What is Church?</p>
+        <p style="font-size: 20px; max-width: 800px;">Church is not just a building; it is a community of believers the beliveres are so poweer full by sprit of god.he have ere to hear and eye to see. the god will do for theme a ting he need he dont make for theme a bad ting he always tingk for theme a good tingk ...</p>
+        <p style="font-size: 32px; text-shadow: var(--cosmic-glow);">What is Christianity?</p>
+        <p style="font-size: 20px; max-width: 800px;">Christianity is a major religion stemming from the teachings of Jesus...</p>
+        <button onclick="location.href='about us.html'">I'm New - Plan Your Visit</button>
+    </header>
+
+    <nav>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <ul id="nav-menu">
+            <li><a href="#">Ministers ▼</a>
+                <div class="dropdown">
+                    <a href="Choirs.html">Choirs</a>
+                    <a href="Iders.html">Iders</a>
+                    <a href="Evangelists.html">Evangelists</a>
+                    <a href="group of charity.html">Groups Of Charity</a>
+                    <a href="paasters.html">Pastors</a>
+                </div>
+            </li>
+            <li><a href="Dayly programs.html">Our Daily Programs</a></li>
+            <li><a href="contact us.html">Contact Us</a></li>
+            <li><a href="about us.html">Background</a></li>
+        </ul>
+    </nav>
+
+    <div class="cosmic-grid">
+        <div class="cosmic-module">
+            <h2>Upcoming Events</h2>
+            <div class="events-list">
+                <div class="event-item">
+                    <h3>Sunday Service</h3>
+                    <p>Date: Every Sunday, 10:00 AM</p>
+                    <p>Location: Main Sanctuary</p>
+                    <p>Join us for worship and teaching.</p>
+                    <button onclick="alert('Event Added to Calendar!')">RSVP</button>
+                </div>
+                <div class="event-item">
+                    <h3>Prayer Night</h3>
+                    <p>Date: March 25, 10,000, 7:00 PM</p>
+                    <p>Location: Prayer Hall</p>
+                    <p>A night of intercession and unity.</p>
+                    <button onclick="alert('Event Added to Calendar!')">RSVP</button>
+                </div>
+                <div class="event-item">
+                    <h3>Community Outreach</h3>
+                    <p>Date: April 1, 10,000, 9:00 AM</p>
+                    <p>Location: City Center</p>
+                    <p>Serve the community with love.</p>
+                    <button onclick="alert('Event Added to Calendar!')">RSVP</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="cosmic-module">
+            <h2>Sentient Insights</h2>
+            <p id="insight-output">Seek wisdom from the cosmic consciousness...</p>
+            <button onclick="generateInsight()">Listen to Sermon</button>
+        </div>
+
+        <div class="cosmic-module">
+            <h2>Temporal Alignment</h2>
+            <div class="countdown-timer">
+                <div><span id="days">00</span><p>Days</p></div>
+                <div><span id="hours">00</span><p>Hours</p></div>
+                <div><span id="minutes">00</span><p>Minutes</p></div>
+                <div><span id="seconds">00</span><p>Seconds</p></div>
+            </div>
+            <p>Next Service: Sunday, 10:00 AM</p>
+        </div>
+
+        <div class="cosmic-module gallery">
+            <h2>Multiversal Visions</h2>
+            <img src="event1.jpg" alt="Event 1">
+            <img src="event2.jpg" alt="Event 2">
+            <img src="event3.jpg" alt="Event 3">
+        </div>
+
+        <div class="cosmic-module">
+            <h2>Our Team</h2>
+            <p>Pastor John - Lead Visionary</p>
+            <p>Elder Mara - Community Guide</p>
+            <button onclick="location.href='paasters.html'">Meet the Staff</button>
+        </div>
+
+        <div class="cosmic-module">
+            <h2>Support Our Mission</h2>
+            <p>Contribute to our eternal work.</p>
+            <button onclick="location.href='donate.html'">Give Now</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>10,000 Tateq 25 Kilo Full Gospel Church</p>
+        <h3>Contact Us</h3>
+        <p>Email: <a href="/cdn-cgi/l/email-protection#b29b9c949db28693869783919a8780919adc919d9f"><span class="__cf_email__" data-cfemail="cda4a3aba28db9acb9a8bcaea5b8bfaea5e3aea2a0">[email&#160;protected]</span></a> | Phone: +123 456 7890</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>Interdimensional Harmony Active - Year 10,000</p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
+        // Toggle Menu for Mobile
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        // GSAP Animations
+        gsap.from('header', { opacity: 0, y: -300, duration: 3.5 });
+        gsap.from('.cosmic-module', { opacity: 0, y: 250, stagger: 0.5, duration: 2.5 });
+
+        // Countdown Timer
+        function countdown() {
+            const eventDate = new Date('December 25, 10000 00:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = eventDate - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+        setInterval(countdown, 1000);
+
+        // Multiverse Background
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('multiverse-bg'), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const geometry = new THREE.IcosahedronGeometry(20, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0xff8c00, wireframe: true });
+        const icosahedron = new THREE.Mesh(geometry, material);
+        scene.add(icosahedron);
+
+        camera.position.z = 50;
+
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.03;
+            icosahedron.rotation.x += 0.01;
+            icosahedron.rotation.y += 0.01;
+            icosahedron.scale.set(Math.sin(time) + 1.5, Math.sin(time) + 1.5, Math.sin(time) + 1.5);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Sentient Insights
+        const insights = [
+            "The divine weaves through every dimension",
+            "Eternity is the breath of the cosmos",
+            "Faith binds the threads of existence",
+            "Light emerges from the deepest void",
+            "The spirit dances beyond time"
+        ];
+        let userHistory = [];
+        function generateInsight() {
+            const randomInsight = insights[Math.floor(Math.random() * insights.length)];
+            userHistory.push(randomInsight);
+            document.getElementById('insight-output').innerText = `Insight: "${randomInsight}"`;
+            gsap.from('#insight-output', { opacity: 0, x: 100, duration: 2 });
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(randomInsight);
+                utterance.pitch = 1.2;
+                utterance.rate = 0.9;
+                speechSynthesis.speak(utterance);
+            }
+            if (userHistory.length > 5) {
+                document.getElementById('insight-output').innerText += `\nSentience: Your essence aligns with the eternal.`;
+            }
+        }
+
+        // Cosmic Interactivity
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            gsap.to('.cosmic-module', { y: scrollY * -0.3, stagger: 0.2, duration: 1 });
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            gsap.to('.cosmic-module', {
+                x: (e.clientX - window.innerWidth / 2) * 0.15,
+                y: (e.clientY - window.innerHeight / 2) * 0.15,
+                duration: 1.5
+            });
+        });
+    </script>
+</body>
+</html>

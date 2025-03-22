@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choirs - Tateq 25 Kilo Full Gospel Church</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&family=Nova+Square&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        :root {
+            --void-orange: #ffcc00;
+            --ethereal-light: #f0f0f0;
+            --void-depth: #030303;
+            --cosmic-glow: 0 0 10px #ffcc00;
+            --radius-molten: 100px;
+            --radius-sub: 10px;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--void-depth);
+            color: var(--ethereal-light);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        body.light-mode {
+            background: var(--ethereal-light);
+            color: var(--void-depth);
+        }
+
+        #particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        nav {
+            background: rgba(3, 3, 3, 0.9);
+            padding: 30px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(30px);
+            border-bottom: 5px solid var(--void-orange);
+            animation: voidShift 4s infinite;
+        }
+
+        nav.light-mode {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 40px;
+            color: var(--ethereal-light);
+            cursor: pointer;
+            text-shadow: var(--cosmic-glow);
+            padding: 10px 20px;
+        }
+
+        .hamburger:hover {
+            color: var(--void-orange);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            position: relative;
+            margin: 0 15px;
+            background-color: #ffcc00;
+        }
+
+        nav ul li a {
+            color: var(--ethereal-light);
+            font-size: 26px;
+            padding: 25px 40px;
+            text-decoration: none;
+            border-radius: var(--radius-sub);
+            transition: all 0.5s ease;
+            text-shadow: var(--cosmic-glow);
+            font-family: 'Nova Square', sans-serif;
+        }
+
+        nav.light-mode ul li a {
+            color: var(--void-depth);
+            text-shadow: none;
+        }
+
+        nav ul li a:hover {
+            background: linear-gradient(135deg, var(--void-orange), var(--ethereal-light));
+            transform: scale(1.1);
+            box-shadow: var(--cosmic-glow);
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: rgba(3, 3, 3, 0.95);
+            min-width: 250px;
+            top: 90px;
+            left: 0;
+            border-radius: var(--radius-sub);
+            box-shadow: var(--cosmic-glow);
+        }
+
+        .dropdown.light-mode {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 15px;
+            color: var(--ethereal-light);
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        .dropdown.light-mode a {
+            color: var(--void-depth);
+        }
+
+        nav ul li:hover .dropdown {
+            display: block;
+            animation: cosmicRise 0.8s ease-in-out;
+        }
+
+        header {
+            padding: 200px 20px 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        header img {
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            box-shadow: var(--cosmic-glow);
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 100px auto;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 60px;
+            border-radius: var(--radius-molten);
+            box-shadow: var(--cosmic-glow);
+            backdrop-filter: blur(25px);
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .content.light-mode {
+            background: rgba(0, 0, 0, 0.02);
+            box-shadow: 0 0 10px #000000;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--void-orange);
+            text-shadow: var(--cosmic-glow);
+            font-size: 36px;
+        }
+
+        h1 {
+            font-size: 48px;
+        }
+
+        table {
+            width: 100%;
+            margin: 40px 0;
+            border-collapse: collapse;
+            border: 1px solid var(--ethereal-light);
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid var(--ethereal-light);
+            text-align: center;
+            background: rgba(255, 204, 0, 0.1);
+        }
+
+        .light-mode table, .light-mode th, .light-mode td {
+            border: 1px solid var(--void-depth);
+        }
+
+        th {
+            color: var(--void-orange);
+            font-size: 24px;
+            background: rgba(255, 204, 0, 0.2);
+        }
+
+        .switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            color: var(--ethereal-light);
+            font-family: 'Nova Square', sans-serif;
+        }
+
+        .switch.light-mode {
+            color: var(--void-depth);
+        }
+
+        footer {
+            background: rgba(3, 3, 3, 0.98);
+            padding: 60px;
+            border-radius: var(--radius-molten) var(--radius-molten) 0 0;
+            box-shadow: var(--cosmic-glow);
+            text-align: center;
+            position: relative;
+        }
+
+        footer.light-mode {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 0 10px #000000;
+        }
+
+        @keyframes cosmicRise {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes voidShift {
+            0% { border-color: var(--void-orange); }
+            50% { border-color: var(--ethereal-light); }
+            100% { border-color: var(--void-orange); }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(3, 3, 3, 0.95);
+                border-radius: 0 0 var(--radius-molten) var(--radius-molten);
+                box-shadow: var(--cosmic-glow);
+            }
+            nav ul.active { display: flex; }
+            nav ul li { width: 100%; text-align: center; }
+            nav ul li a { display: block; padding: 20px; }
+            .dropdown { position: relative; top: 0; width: 100%; display: none; }
+            nav ul li:hover .dropdown { display: block; }
+            .content { margin: 20px; padding: 30px; }
+            header img { width: 200px; height: 200px; }
+            table, th, td { font-size: 14px; padding: 10px; }
+        }
+
+        @media (min-width: 769px) {
+            .hamburger { display: none; }
+            nav ul { display: flex; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particle-bg"></canvas>
+
+    <header>
+        <img src="images.jpeg" alt="Church Logo">
+        <h1>Tateq 25 Kilo Full Gospel Believers Church</h1>
+    </header>
+
+    <nav>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <ul id="nav-menu">
+            <li><a href="Index.html">Home</a></li>
+            <li>
+                <a href="#">Ministers ▼</a>
+                <div class="dropdown">
+                    <a href="Choirs.html">Choirs</a>
+                    <a href="Eledrs.html">Elders</a>
+                    <a href="Evangelists.html">Evangelists</a>
+                    <a href="group of charity.html">Groups Of Charity</a>
+                    <a href="paasters.html">Pastors</a>
+                </div>
+            </li>
+            <li><a href="Dayly programs.html">Our Daily Programs</a></li>
+            <li><a href="Contact Us.html">Contact Us</a></li>
+            <li><a href="About Us.html">Background</a></li>
+        </ul>
+    </nav>
+
+    <div class="switch">
+        <label>
+            <input type="checkbox" id="modeSwitch">
+            Light/Dark Mode
+        </label>
+    </div>
+
+    <div class="content">
+        <h2><u>Choirs of Tateq 25 Kilo Full Gospel Believers Church</u></h2>
+        <table>
+            <tr>
+                <th>Name of the Choir</th>
+                <th>Number of Members</th>
+                <th>Leader</th>
+            </tr>
+            <tr>
+                <td>Amanuel</td>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+            <tr>
+                <td>Maaraanaataa</td>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+            <tr>
+                <td>Eelshaaday</td>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+            <tr>
+                <td>Rooboot</td>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+        </table>
+
+        <h2><u>Choir Rehearsal Schedule</u></h2>
+        <table>
+            <tr>
+                <th>Choir</th>
+                <th>Day</th>
+                <th>Time</th>
+            </tr>
+            <tr>
+                <td>Amanuel</td>
+                <td>Wednesday</td>
+                <td>6:00 PM - 8:00 PM</td>
+            </tr>
+            <tr>
+                <td>Maaraanaataa</td>
+                <td>Thursday</td>
+                <td>5:00 PM - 7:00 PM</td>
+            </tr>
+            <tr>
+                <td>Eelshaaday</td>
+                <td>Friday</td>
+                <td>6:00 PM - 8:00 PM</td>
+            </tr>
+            <tr>
+                <td>Rooboot</td>
+                <td>Saturday</td>
+                <td>4:00 PM - 6:00 PM</td>
+            </tr>
+        </table>
+
+        <h2><u>Upcoming Choir Performances</u></h2>
+        <table>
+            <tr>
+                <th>Choir</th>
+                <th>Date</th>
+                <th>Event</th>
+            </tr>
+            <tr>
+                <td>Amanuel</td>
+                <td>April 5, 2025</td>
+                <td>Easter Celebration</td>
+            </tr>
+            <tr>
+                <td>Maaraanaataa</td>
+                <td>April 12, 2025</td>
+                <td>Sunday Worship</td>
+            </tr>
+            <tr>
+                <td>Eelshaaday</td>
+                <td>April 19, 2025</td>
+                <td>Youth Service</td>
+            </tr>
+            <tr>
+                <td>Rooboot</td>
+                <td>April 26, 2025</td>
+                <td>Community Outreach</td>
+            </tr>
+        </table>
+    </div>
+
+    <footer class="footer">
+        <p>© 10,000 Tateq 25 Kilo Full Gospel Believers Church</p>
+    </footer>
+
+    <script>
+        // Toggle Menu for Mobile
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        // GSAP Animations
+        gsap.from('header', { opacity: 0, y: -200, duration: 2 });
+        gsap.from('.content', { opacity: 0, y: 200, duration: 2, delay: 1 });
+        gsap.from('table', { opacity: 0, y: 50, duration: 1.5, delay: 2, stagger: 0.3 });
+
+        // Light/Dark Mode Toggle
+        const modeSwitch = document.getElementById('modeSwitch');
+        modeSwitch.addEventListener('change', () => {
+            document.body.classList.toggle('light-mode');
+            document.querySelector('nav').classList.toggle('light-mode');
+            document.querySelector('.content').classList.toggle('light-mode');
+            document.querySelector('.dropdown').classList.toggle('light-mode');
+            document.querySelector('.footer').classList.toggle('light-mode');
+            document.querySelector('.switch').classList.toggle('light-mode');
+        });
+
+        // Particle Background
+        const canvas = document.getElementById('particle-bg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 1,
+                speedX: Math.random() * 0.5 - 0.25,
+                speedY: Math.random() * 0.5 - 0.25
+            });
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const isLightMode = document.body.classList.contains('light-mode');
+            ctx.fillStyle = isLightMode ? '#000000' : '#ffcc00';
+
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

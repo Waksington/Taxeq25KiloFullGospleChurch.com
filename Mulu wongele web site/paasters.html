@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastors - Tateq 25 Kilo Full Gospel Church - Year 10,000</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&family=Nova+Square&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        :root {
+            --celestial-gold: #ffd700;
+            --black-void: #000000;
+            --cosmic-glow: 0 0 20px #ffd700, 0 0 40px #ffd700, 0 0 60px #ffd700;
+            --radius-molten: 100px;
+            --radius-sub: 50px;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--black-void);
+            color: var(--celestial-gold);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(30px);
+            border-bottom: 5px solid var(--celestial-gold);
+            animation: haloPulse 3s infinite;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: var(--celestial-gold);
+            font-size: 26px;
+            padding: 25px 40px;
+            text-decoration: none;
+            border-radius: var(--radius-sub);
+            transition: all 0.5s ease;
+            text-shadow: var(--cosmic-glow);
+            font-family: 'Nova Square', sans-serif;
+        }
+
+        nav ul li a:hover {
+            background: linear-gradient(135deg, var(--celestial-gold), var(--black-void));
+            transform: scale(1.2) translateY(-10px);
+            box-shadow: var(--cosmic-glow);
+            animation: ripple 0.8s infinite;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.95);
+            min-width: 250px;
+            top: 90px;
+            left: 0;
+            border-radius: var(--radius-sub);
+            box-shadow: var(--cosmic-glow);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 15px;
+            color: var(--celestial-gold);
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        nav ul li:hover .dropdown {
+            display: block;
+            animation: cosmicRise 0.8s ease-in-out;
+        }
+
+        header {
+            padding: 200px 20px 100px;
+            text-align: center;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 100px auto;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 60px;
+            border-radius: var(--radius-molten);
+            box-shadow: var(--cosmic-glow);
+            backdrop-filter: blur(25px);
+            position: relative;
+            text-align: center;
+        }
+
+        .pastor-orbit {
+            position: relative;
+            width: 500px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .pastor-orbit img {
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius-molten);
+            box-shadow: var(--cosmic-glow);
+        }
+
+        .pastor-name {
+            position: absolute;
+            font-size: 24px;
+            color: var(--celestial-gold);
+            text-shadow: var(--cosmic-glow);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.98);
+            padding: 60px;
+            border-radius: var(--radius-molten) var(--radius-molten) 0 0;
+            box-shadow: var(--cosmic-glow);
+            text-align: center;
+        }
+
+        @keyframes ripple {
+            0% { transform: scale(1.2) translateY(-10px); }
+            50% { transform: scale(1.25) translateY(-12px); }
+            100% { transform: scale(1.2) translateY(-10px); }
+        }
+
+        @keyframes cosmicRise {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes haloPulse {
+            0% { border-color: var(--celestial-gold); }
+            50% { border-color: #ffffff; }
+            100% { border-color: var(--celestial-gold); }
+        }
+
+        @media (max-width: 768px) {
+            nav ul { flex-direction: column; }
+            .content { margin: 20px; padding: 30px; }
+            .pastor-orbit { width: 300px; height: 240px; }
+            .pastor-name { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images.jpeg" style="border-radius: 50%; width: 300px; height: 300px; box-shadow: var(--cosmic-glow);">
+        <h1 style="font-size: 48px; text-shadow: var(--cosmic-glow);">Tateq 25 Kilo Full Gospel Believers Church</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="Index.html">Home</a></li>
+            <li>
+                <a href="#">Ministers ▼</a>
+                <div class="dropdown">
+                    <a href="Choirs.html">Choirs</a>
+                    <a href="Eledrs.html">Eledrs</a>
+                    <a href="Evangelists.html">Evangelists</a>
+                    <a href="group of charity.html">Groups Of Charity</a>
+                    <a href="paasters.html">Pastors</a>
+                </div>
+            </li>
+            <li><a href="Dayly programs.html">Our Daily Programs</a></li>
+            <li><a href="Contact Us.html">Contact Us</a></li>
+            <li><a href="About Us.html">Background</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <h1><u>Pastors of the Church</u></h1>
+        <div class="pastor-orbit">
+            <img src="images.jpeg" alt="Pastors">
+            <div class="pastor-name" id="pastor1">Pr. Shimals</div>
+            <div class="pastor-name" id="pastor2">Pr. Yared</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 10,000 Tateq 25 Kilo Full Gospel Believers Church</p>
+    </footer>
+
+    <script>
+        gsap.from('header', { opacity: 0, y: -200, duration: 2 });
+        gsap.from('.pastor-orbit', { opacity: 0, scale: 0.8, duration: 1.5, delay: 1 });
+
+        // Orbiting Animation
+        gsap.to('#pastor1', {
+            x: 200 * Math.cos(0),
+            y: 200 * Math.sin(0),
+            duration: 5,
+            repeat: -1,
+            ease: "linear",
+            motionPath: {
+                path: "M 0,0 A 200,200 0 1,1 0,-0.001",
+                align: "center",
+                alignOrigin: [0.5, 0.5]
+            }
+        });
+
+        gsap.to('#pastor2', {
+            x: 200 * Math.cos(Math.PI),
+            y: 200 * Math.sin(Math.PI),
+            duration: 5,
+            repeat: -1,
+            ease: "linear",
+            motionPath: {
+                path: "M 0,0 A 200,200 0 1,1 0,-0.001",
+                align: "center",
+                alignOrigin: [0.5, 0.5]
+            }
+        });
+    </script>
+</body>
+</html>

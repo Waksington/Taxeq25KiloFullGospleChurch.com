@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Tateq 25 Kilo Full Gospel Church - Year 10,000</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&family=Nova+Square&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        :root {
+            --cyber-orange: #ff6600;
+            --black-depth: #000000;
+            --ethereal-light: #f0f0f0;
+            --cosmic-glow: 0 0 20px #ff6600, 0 0 40px #ff6600, 0 0 60px #ff6600;
+            --radius-molten: 100px;
+            --radius-sub: 50px;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--black-depth);
+            color: var(--ethereal-light);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 60px;
+            border-radius: var(--radius-molten);
+            box-shadow: var(--cosmic-glow);
+            backdrop-filter: blur(25px);
+            text-align: center;
+            width: 400px;
+            position: relative;
+        }
+
+        img {
+            border-radius: 50%;
+            width: 150px;
+            margin-bottom: 20px;
+            box-shadow: var(--cosmic-glow);
+        }
+
+        h1, h3 {
+            color: var(--cyber-orange);
+            text-shadow: var(--cosmic-glow);
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid var(--cyber-orange);
+            border-radius: var(--radius-sub);
+            font-size: 16px;
+            background: transparent;
+            color: var(--ethereal-light);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--ethereal-light);
+            box-shadow: var(--cosmic-glow);
+            outline: none;
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--cyber-orange), var(--ethereal-light));
+            color: var(--black-depth);
+            font-size: 20px;
+            padding: 15px;
+            border: none;
+            border-radius: var(--radius-sub);
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.5s ease;
+            box-shadow: var(--cosmic-glow);
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px #ff6600, 0 0 80px #ff6600;
+        }
+
+        a {
+            color: var(--cyber-orange);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--ethereal-light);
+            text-shadow: var(--cosmic-glow);
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-5px, 5px); }
+            40% { transform: translate(5px, -5px); }
+            60% { transform: translate(-5px, 0); }
+            80% { transform: translate(5px, 0); }
+            100% { transform: translate(0); }
+        }
+
+        @media (max-width: 768px) {
+            .container { width: 90%; padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="images.jpeg" alt="Church Logo">
+        <h1>Welcome to Tateq 25 Kilo Full Gospel Church</h1>
+        <h3>Sign in to continue</h3>
+        
+        <form onsubmit="return validateLogin(event)">
+            <input type="email" id="email" name="email" placeholder="Enter your Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        
+        <p>Not a member? <a href="https://support.google.com/mail/answer/56256?hl=en">Create an account</a></p>
+    </div>
+
+    <script>
+        gsap.from('.container', { opacity: 0, y: -200, duration: 2 });
+        gsap.from('input, button', { opacity: 0, x: () => Math.random() * 100 - 50, stagger: 0.2, duration: 1.5, delay: 1 });
+        gsap.to('input, button', { animation: 'glitch 0.5s infinite', delay: 2, repeat: 3 });
+
+        function validateLogin(event) {
+            event.preventDefault();
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var validEmail = "test@example.com";
+            var validPassword = "password123";
+            
+            if (email !== validEmail) {
+                alert("Invalid email. Please enter a correct email address.");
+                return false;
+            }
+            
+            if (password !== validPassword) {
+                alert("Incorrect password. Please try again.");
+                return false;
+            }
+            
+            alert("Login successful! Redirecting to home page...");
+            window.location.href = "Index.html";
+            return false;
+        }
+    </script>
+</body>
+</html>
